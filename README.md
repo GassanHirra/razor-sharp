@@ -93,13 +93,13 @@ Then reboot. If Secure Boot is on, you may need to enrol the driver's key during
 **Debian, Ubuntu, Linux Mint, Pop!_OS:** download the `.deb` from the [Releases](../../releases) page and run:
 
 ```bash
-sudo apt install ./razor-sharp_0.2.0_all.deb
+sudo apt install ./razor-sharp_0.2.1_all.deb
 ```
 
 **Arch Linux, Manjaro, EndeavourOS, CachyOS:** download the `.pkg.tar.zst` from the [Releases](../../releases) page and run:
 
 ```bash
-sudo pacman -U ./razor-sharp-0.2.0-1-any.pkg.tar.zst
+sudo pacman -U ./razor-sharp-0.2.1-1-any.pkg.tar.zst
 ```
 
 pacman installs OpenRazer and the other dependencies from the official repositories. You can also build it yourself from [`packaging/aur/PKGBUILD`](packaging/aur/PKGBUILD) with `makepkg -si`.

@@ -1,6 +1,6 @@
 pkgbase = razor-sharp
 	pkgdesc = Typing-reactive lighting effects for Razer keyboards (OpenRazer)
-	pkgver = 0.2.0
+	pkgver = 0.2.1
 	pkgrel = 1
 	url = https://github.com/GassanHirra/razor-sharp
 	arch = any
@@ -15,7 +15,7 @@ pkgbase = razor-sharp
 	optdepends = libnotify: notifications for keyboard shortcuts
 	optdepends = xprintidle: lights off when idle on X11 outside GNOME
 	optdepends = polkit: one-click key-press permission
-	source = razor-sharp-0.2.0.tar.gz::https://github.com/GassanHirra/razor-sharp/archive/refs/tags/v0.2.0.tar.gz
+	source = razor-sharp-0.2.1.tar.gz::https://github.com/GassanHirra/razor-sharp/archive/refs/tags/v0.2.1.tar.gz
 	sha256sums = 24774141c2edd3b2f9a1afd6d6b7f78d81127f3805f2a4c2ba1a4690b79cde3a
 
 pkgname = razor-sharp

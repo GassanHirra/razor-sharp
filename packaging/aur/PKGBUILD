@@ -1,7 +1,7 @@
 # Maintainer: Gassan <noreply@users.noreply.github.com>
 # Arch Linux / AUR package. For a new version: bump pkgver, run `updpkgsums` and `makepkg --printsrcinfo > .SRCINFO`.
 pkgname=razor-sharp
-pkgver=0.2.0
+pkgver=0.2.1
 pkgrel=1
 pkgdesc="Typing-reactive lighting effects for Razer keyboards (OpenRazer)"
 arch=('any')

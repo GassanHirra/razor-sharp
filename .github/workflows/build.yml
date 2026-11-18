@@ -61,10 +61,14 @@ jobs:
             echo "::notice::Tag v${v} isn't on GitHub yet, so there's no source to package. Skipping."
             echo "built=false" >> "$GITHUB_OUTPUT"; exit 0
           fi
-          pacman -Syu --noconfirm --needed namcap
+          pacman -Syu --noconfirm --needed namcap pacman-contrib
           useradd -m builder
           cp -r packaging/aur /home/builder/aur && chown -R builder /home/builder/aur
           cd /home/builder/aur
+          cp PKGBUILD /tmp/PKGBUILD.committed
+          sudo -u builder updpkgsums   # the release tarball's checksum is only known once the tag exists
+          diff -q PKGBUILD /tmp/PKGBUILD.committed >/dev/null || \
+            echo "::warning::Checksum in packaging/aur/PKGBUILD is out of date: $(grep sha256sums PKGBUILD)"
           sudo -u builder makepkg --nodeps --noconfirm
           sudo -u builder makepkg --printsrcinfo > /tmp/srcinfo
           diff -u .SRCINFO /tmp/srcinfo || echo "::warning::packaging/aur/.SRCINFO is out of date (run makepkg --printsrcinfo)"

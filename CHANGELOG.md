@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1 — 2026-11-18
+
+- Fixed: dropdown lists didn't close when you clicked elsewhere. They now close on a click outside, on Esc, or when you switch to another app.
+
 ## 0.2.0 — 2026-11-18
 
 ![What's new in 0.2](docs/media/whats_new.gif)

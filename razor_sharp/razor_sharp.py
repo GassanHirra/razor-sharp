@@ -9,7 +9,7 @@ Add your own effects as small Python scripts.
 Copyright (C) 2026 Gassan. Licensed under the GNU GPL v3 or later.
 """
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 import ast
 import json
@@ -617,19 +617,37 @@ class Dropdown(tk.Frame):
         for w in (self, self.text, self.arrow):
             w.config(bg=bg)
 
+    _menu = None   # the one dropdown list that's open, app-wide
+
+    @classmethod
+    def close_menu(cls):
+        """Close the open dropdown list, if any. Returns True if one was open."""
+        menu, cls._menu = cls._menu, None
+        if menu is None:
+            return False
+        try:
+            if menu.winfo_exists():
+                menu.unpost()
+                menu.grab_release()
+                menu.destroy()
+        except tk.TclError:
+            pass
+        return True
+
     def open(self, _e=None):
         if not self.enabled or not self.values:
             return
+        Dropdown.close_menu()
         menu = tk.Menu(self, tearoff=0, bg=INPUT, fg=FG, activebackground=ACCENT, activeforeground="#000000",
                        bd=0, relief="flat", font=FONTS["body"], activeborderwidth=0)
         for i, v in enumerate(self.values):
             menu.add_command(label=f"  {v}  ", command=lambda i=i: self.pick(i))
-        try:
-            menu.tk_popup(self.winfo_rootx(), self.winfo_rooty() + self.winfo_height())
-        finally:
-            menu.grab_release()
+        Dropdown._menu = menu
+        # Keep the grab tk_popup sets: on Linux it's what makes a click anywhere else (or Esc) close the list.
+        menu.tk_popup(self.winfo_rootx(), self.winfo_rooty() + self.winfo_height())
 
     def pick(self, i):
+        Dropdown._menu = None
         self.set_text(self.values[i])
         self.command(i)
 
@@ -750,6 +768,7 @@ class App:
         root.minsize(1180, 760)
         root.configure(bg=BG)
         root.protocol("WM_DELETE_WINDOW", self.on_close)
+        root.bind_all("<FocusOut>", self._focus_left, add="+")
         self.setup_fonts()
         self.setup_style()
         self.build_ui()
@@ -1042,6 +1061,17 @@ class App:
 
     def open_key_mapper(self):
         KeyMapper(self)
+
+    def _focus_left(self, _e=None):
+        self.root.after(200, self._close_menu_if_away)
+
+    def _close_menu_if_away(self):
+        try:
+            away = self.root.focus_get() is None
+        except (KeyError, tk.TclError):   # focus is on a popup menu, i.e. still in the app
+            away = False
+        if away:
+            Dropdown.close_menu()
 
     def open_settings(self):
         if getattr(self, "settings_win", None) and self.settings_win.win.winfo_exists():

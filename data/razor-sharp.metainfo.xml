@@ -41,6 +41,11 @@
   </keywords>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.2.1" date="2026-11-18">
+      <description>
+        <p>Dropdown lists now close when you click elsewhere.</p>
+      </description>
+    </release>
     <release version="0.2.0" date="2026-11-18">
       <description>
         <p>Settings window with key highlights, status keys, night mode, idle-off, app profiles, keyboard shortcuts and backup. Five new effects, including the game Breakout.</p>
