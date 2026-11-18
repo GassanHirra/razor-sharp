@@ -17,6 +17,8 @@
 
 **New effects:** Game of Life, Starfield, Rain (with thunderstorm), WPM Meter, and Breakout, a second playable game.
 
+**Arch Linux package:** a `.pkg.tar.zst` is now attached to each release, built from `packaging/aur/PKGBUILD`.
+
 **Command line:** `--effect NAME`, `--next`, `--previous`, `--toggle` and `--help`.
 
 **For effect authors:** `fx.key_events(repeats=True)` includes key auto-repeat, which helps games. Highlights, status keys, night mode, idle-off and frame rate apply to every effect automatically.

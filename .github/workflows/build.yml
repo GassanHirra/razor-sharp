@@ -43,3 +43,60 @@ jobs:
         with:
           files: build/*.deb
           generate_release_notes: true
+
+  arch:
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    outputs:
+      built: ${{ steps.build.outputs.built }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Arch package
+        id: build
+        run: |
+          v=$(grep '^pkgver=' packaging/aur/PKGBUILD | cut -d= -f2)
+          url="https://github.com/${GITHUB_REPOSITORY}/archive/refs/tags/v${v}.tar.gz"
+          if ! curl -sfIL "$url" >/dev/null; then
+            echo "::notice::Tag v${v} isn't on GitHub yet, so there's no source to package. Skipping."
+            echo "built=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          pacman -Syu --noconfirm --needed namcap
+          useradd -m builder
+          cp -r packaging/aur /home/builder/aur && chown -R builder /home/builder/aur
+          cd /home/builder/aur
+          sudo -u builder makepkg --nodeps --noconfirm
+          sudo -u builder makepkg --printsrcinfo > /tmp/srcinfo
+          diff -u .SRCINFO /tmp/srcinfo || echo "::warning::packaging/aur/.SRCINFO is out of date (run makepkg --printsrcinfo)"
+          namcap PKGBUILD *.pkg.tar.zst || true
+          mkdir -p "$GITHUB_WORKSPACE/build" && cp *.pkg.tar.zst "$GITHUB_WORKSPACE/build/"
+          echo "built=true" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v4
+        if: steps.build.outputs.built == 'true'
+        with:
+          name: razor-sharp-arch
+          path: build/*.pkg.tar.zst
+
+  publish-arch:
+    needs: [deb, arch]
+    if: github.event_name == 'push' && needs.arch.outputs.built == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: razor-sharp-arch
+          path: dist
+
+      - name: Attach the Arch package to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v=$(grep '^pkgver=' packaging/aur/PKGBUILD | cut -d= -f2)
+          if gh release view "v$v" >/dev/null 2>&1; then
+            gh release upload "v$v" dist/*.pkg.tar.zst --clobber
+          else
+            echo "::notice::No release v$v yet; the package will be attached when it's published."
+          fi

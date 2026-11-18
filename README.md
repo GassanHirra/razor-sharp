@@ -78,7 +78,7 @@
 
 ### 1. Set up OpenRazer
 
-Razor Sharp drives your keyboard through [OpenRazer](https://openrazer.github.io/#download). Install it first and make sure your keyboard shows up, for example in Polychromatic. On Ubuntu:
+Razor Sharp drives your keyboard through [OpenRazer](https://openrazer.github.io/#download). Install it first and make sure your keyboard shows up, for example in Polychromatic. On Arch, `sudo pacman -S openrazer-meta` (or let the Razor Sharp package pull it in). On Ubuntu:
 
 ```bash
 sudo add-apt-repository ppa:openrazer/stable
@@ -95,6 +95,14 @@ Then reboot. If Secure Boot is on, you may need to enrol the driver's key during
 ```bash
 sudo apt install ./razor-sharp_0.2.0_all.deb
 ```
+
+**Arch Linux, Manjaro, EndeavourOS, CachyOS:** download the `.pkg.tar.zst` from the [Releases](../../releases) page and run:
+
+```bash
+sudo pacman -U ./razor-sharp-0.2.0-1-any.pkg.tar.zst
+```
+
+pacman installs OpenRazer and the other dependencies from the official repositories. You can also build it yourself from [`packaging/aur/PKGBUILD`](packaging/aur/PKGBUILD) with `makepkg -si`.
 
 **Other distributions:** install Tk for Python, the OpenRazer Python bindings and python-evdev with your package manager, then:
 

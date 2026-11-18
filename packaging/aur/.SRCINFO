@@ -1,0 +1,21 @@
+pkgbase = razor-sharp
+	pkgdesc = Typing-reactive lighting effects for Razer keyboards (OpenRazer)
+	pkgver = 0.2.0
+	pkgrel = 1
+	url = https://github.com/GassanHirra/razor-sharp
+	arch = any
+	license = GPL-3.0-or-later
+	depends = python
+	depends = tk
+	depends = python-openrazer
+	depends = openrazer-daemon
+	depends = python-evdev
+	optdepends = python-numpy: audio visualiser
+	optdepends = libpulse: audio visualiser (parec)
+	optdepends = libnotify: notifications for keyboard shortcuts
+	optdepends = xprintidle: lights off when idle on X11 outside GNOME
+	optdepends = polkit: one-click key-press permission
+	source = razor-sharp-0.2.0.tar.gz::https://github.com/GassanHirra/razor-sharp/archive/refs/tags/v0.2.0.tar.gz
+	sha256sums = 24774141c2edd3b2f9a1afd6d6b7f78d81127f3805f2a4c2ba1a4690b79cde3a
+
+pkgname = razor-sharp
