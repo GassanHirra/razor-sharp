@@ -1,0 +1,34 @@
+# Maintainer: Gassan <noreply@users.noreply.github.com>
+# Arch Linux / AUR package. Before publishing: set the GitHub URL, then run `updpkgsums` and `makepkg --printsrcinfo > .SRCINFO`.
+pkgname=razor-sharp
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Typing-reactive lighting effects for Razer keyboards (OpenRazer)"
+arch=('any')
+url="https://github.com/GassanHirra/razor-sharp"
+license=('GPL-3.0-or-later')
+depends=('python' 'tk' 'python-openrazer' 'openrazer-daemon' 'python-evdev')
+optdepends=('python-numpy: audio visualiser'
+            'libpulse: audio visualiser (parec)'
+            'libnotify: notifications for keyboard shortcuts'
+            'xprintidle: lights off when idle on X11 outside GNOME'
+            'polkit: one-click key-press permission')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('SKIP')
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -d "$pkgdir/usr/share/$pkgname"
+  cp -r razor_sharp/razor_sharp.py razor_sharp/lib razor_sharp/effects razor_sharp/layouts razor_sharp/icons \
+    "$pkgdir/usr/share/$pkgname/"
+  find "$pkgdir/usr/share/$pkgname" -name '__pycache__' -prune -exec rm -rf {} +
+  install -d "$pkgdir/usr/bin"
+  printf '#!/bin/sh\nexec /usr/bin/python3 /usr/share/razor-sharp/razor_sharp.py "$@"\n' > "$pkgdir/usr/bin/$pkgname"
+  chmod 755 "$pkgdir/usr/bin/$pkgname"
+  install -Dm644 data/razor-sharp.desktop -t "$pkgdir/usr/share/applications/"
+  install -Dm644 data/razor-sharp.metainfo.xml -t "$pkgdir/usr/share/metainfo/"
+  for d in data/icons/hicolor/*/; do
+    install -Dm644 "$d/apps/razor-sharp.png" "$pkgdir/usr/share/icons/hicolor/$(basename "$d")/apps/razor-sharp.png"
+  done
+  install -Dm644 README.md CHANGELOG.md -t "$pkgdir/usr/share/doc/$pkgname/"
+}

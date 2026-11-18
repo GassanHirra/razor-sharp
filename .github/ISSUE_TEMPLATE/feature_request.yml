@@ -1,0 +1,11 @@
+name: Idea or effect request
+description: Suggest a feature or a new effect
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like?
+      description: Describe the feature or effect. For effects, say how it should look and react to typing.
+    validations:
+      required: true

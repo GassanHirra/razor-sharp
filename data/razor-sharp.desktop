@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Razor Sharp
+GenericName=Keyboard Lighting
+Comment=Lighting effects for Razer keyboards
+Exec=razor-sharp
+Icon=razor-sharp
+Terminal=false
+Categories=Utility;Settings;HardwareSettings;
+Keywords=razer;rgb;keyboard;lighting;openrazer;chroma;effects;
+StartupWMClass=RazorSharp

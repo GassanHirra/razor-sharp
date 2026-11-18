@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>razor-sharp</id>
+  <name>Razor Sharp</name>
+  <summary>Lighting effects for Razer keyboards</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="razor-sharp">
+    <name>Gassan</name>
+  </developer>
+  <description>
+    <p>
+      Razor Sharp brings animated, typing-reactive lighting to Razer keyboards on Linux,
+      using the OpenRazer driver. It comes with 24 effects, from ripples and lightning
+      to an audio visualiser, a system monitor, a Pomodoro timer, and two playable games, Snake and Breakout.
+    </p>
+    <ul>
+      <li>Solid, gradient, rainbow, spectrum and breathing lighting with presets</li>
+      <li>Separate brightness for the background and for the effect</li>
+      <li>Effects keep running after the window is closed, and can start at login</li>
+      <li>Key highlights, status keys, night mode, and lights off when you step away</li>
+      <li>App profiles switch effects automatically while chosen apps run</li>
+      <li>Map the keys of any keyboard with the built-in key-mapping tool</li>
+      <li>Write your own effects as short Python scripts</li>
+    </ul>
+    <p>Not affiliated with or endorsed by Razer Inc.</p>
+  </description>
+  <launchable type="desktop-id">razor-sharp.desktop</launchable>
+  <provides>
+    <binary>razor-sharp</binary>
+  </provides>
+  <categories>
+    <category>Utility</category>
+    <category>Settings</category>
+  </categories>
+  <keywords>
+    <keyword>razer</keyword>
+    <keyword>keyboard</keyword>
+    <keyword>rgb</keyword>
+    <keyword>openrazer</keyword>
+  </keywords>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="0.2.0" date="2026-11-18">
+      <description>
+        <p>Settings window with key highlights, status keys, night mode, idle-off, app profiles, keyboard shortcuts and backup. Five new effects, including the game Breakout.</p>
+      </description>
+    </release>
+    <release version="0.1.0" date="2026-11-18">
+      <description>
+        <p>First public release.</p>
+      </description>
+    </release>
+  </releases>
+</component>

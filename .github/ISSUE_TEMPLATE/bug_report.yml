@@ -1,0 +1,39 @@
+name: Bug report
+description: Something doesn't work as expected
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: input
+    id: keyboard
+    attributes:
+      label: Keyboard model
+      placeholder: Razer Huntsman V2 Tenkeyless
+    validations:
+      required: true
+  - type: input
+    id: distro
+    attributes:
+      label: Distribution and desktop
+      placeholder: Ubuntu 24.04, GNOME
+  - type: input
+    id: versions
+    attributes:
+      label: Razor Sharp and OpenRazer versions
+      placeholder: "Razor Sharp 0.1.0 (razor-sharp --version), OpenRazer 3.12.4"
+  - type: input
+    id: effect
+    attributes:
+      label: Effect
+      placeholder: Shockwave
+  - type: textarea
+    id: log
+    attributes:
+      label: Log
+      description: Click "Show log" at the bottom of the app window and paste it here.
+      render: text

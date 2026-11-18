@@ -1,0 +1,42 @@
+name: Keyboard layout
+description: Share a key layout so your keyboard works out of the box for everyone
+labels: [layout]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! Map your keyboard with **Map keys** in the app, then attach or paste the file from
+        `~/.config/razor-sharp/layouts/`.
+  - type: input
+    id: keyboard
+    attributes:
+      label: Keyboard model (as shown in the app)
+      placeholder: Razer BlackWidow V4
+    validations:
+      required: true
+  - type: dropdown
+    id: form
+    attributes:
+      label: Layout
+      options: [Full-size, Tenkeyless, 75%, 65%, 60%, Laptop, Other]
+    validations:
+      required: true
+  - type: dropdown
+    id: region
+    attributes:
+      label: Key layout
+      options: [ANSI (US), ISO (UK/EU), JIS, Other]
+  - type: textarea
+    id: layout
+    attributes:
+      label: Layout file
+      description: Paste the JSON, or drag the file in.
+      render: json
+    validations:
+      required: true
+  - type: checkboxes
+    id: checked
+    attributes:
+      label: Checked
+      options:
+        - label: I tried a reactive effect (for example Reactive Fade) and the right keys light up
